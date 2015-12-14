@@ -1,0 +1,49 @@
+<html>
+
+<head>
+<style>
+#marker{
+	width: 10px;
+	height: 10px;
+	background-color: black;
+	z-index: 1001;
+	cursor: se-resize;
+	position: absolute;
+}
+#clickedPic{
+ 	position:absolute;
+}
+body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+
+    }
+img{
+	cursor:pointer;
+	position: absolute;
+	width: 400px;
+
+}
+</style>
+<title>Image Resizer</title>
+</head>
+
+<body>
+<div id="clickedPic">
+	<div id="marker" draggable="true"></div>
+	<img src="img/pinkthing.jpg"/>
+
+</div>
+
+<div id="picContainer">
+
+	<img src="img/hajam.jpg"/>
+	<img src="img/pancate.jpg"/>
+	<img src="img/tankcat.jpg"/>	
+</div>
+
+<script src="scripts/app.js"></script>
+</body>
+
+</html>
