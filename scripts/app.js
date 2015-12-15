@@ -10,13 +10,13 @@ var container = document.getElementById("picContainer");
 var marker = document.getElementById("marker");
 
 
-marker.ondragstart = function(e){
+marker.onmousedown = function(e){
 	var oldWidth = parseInt(border.style.width);
 	var startX = e.pageX;
 	var oldHeight = parseInt(border.style.height);
 	var startY = e.pageY;
 
-	marker.ondrag = function(e){
+	document.onmousemove = function(e){
 
 		var newWidth = oldWidth - startX + e.pageX;
 		var newHeight = oldHeight - startY + e.pageY;
@@ -48,8 +48,6 @@ marker.ondragstart = function(e){
 
 		};
 
-
-
 		function scaleByHeight(){
 			if(newHeight >= minsize){
 				border.style.height = newHeight + "px";
@@ -65,13 +63,19 @@ marker.ondragstart = function(e){
 			mendMarker();
 		};
 	};
+	document.onmouseup = function(e){
+		document.onmousemove = null;
+	};
+	marker.ondragstart = function() {
+  		return false;
+	};
 };
 
 
 function setBindings(target){
 
 	target.onmousedown = function(e){
-		mendMarker();
+
 
 		var coords = getCoords(target);
 		var shiftX = e.pageX - coords.left;
@@ -79,6 +83,8 @@ function setBindings(target){
 
 		border.style.width = target.width;
 		border.style.height = target.height;
+
+		mendMarker();
 
 		var currentImage = border.children[1]; // Save position  
 		var currentTopPosition = border.style.top; // of dragged image
@@ -113,9 +119,7 @@ function setBindings(target){
 
 		target.onmouseup = function(e){
 			document.onmousemove = null;
-			target.onmouseup = null;
-			border.onmouseup = null;
-		}
+		};
 
 		target.ondragstart = function() {
   		return false;
