@@ -9,7 +9,7 @@ var border = document.getElementById("clickedPic");
 var container = document.getElementById("picContainer");
 var marker = document.getElementById("marker");
 
-
+//Rescaling
 marker.onmousedown = function(e){
 	var oldWidth = parseInt(border.style.width);
 	var startX = e.pageX;
@@ -23,15 +23,12 @@ marker.onmousedown = function(e){
 
 		var diffInWidth = Math.abs(newWidth - oldWidth);
 		var diffInHeight = Math.abs(newHeight - oldHeight);
-		if(e.pageX != 0 && e.pageY != 0){
 
 			if (diffInWidth > diffInHeight){
 				scaleByWidth();
 			} else{
 				scaleByHeight();
 			};
-
-		};
 
 		function scaleByWidth(){
 			if (newWidth >= minsize){
@@ -71,7 +68,7 @@ marker.onmousedown = function(e){
 	};
 };
 
-
+//Dragging
 function setBindings(target){
 
 	target.onmousedown = function(e){
