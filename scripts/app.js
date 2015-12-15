@@ -3,16 +3,11 @@ for(var i = 0; i < images.length; i++){
 	var picture = document.getElementsByTagName("img")[i];
 	setBindings(picture);
 };
-
 var minsize = 100;
 
 var border = document.getElementById("clickedPic");
 var container = document.getElementById("picContainer");
 var marker = document.getElementById("marker");
-
-document.onclick = function(e){
-	console.log(e.pageX + " " + e.pageY);
-}
 
 
 marker.ondragstart = function(e){
@@ -21,24 +16,27 @@ marker.ondragstart = function(e){
 	var oldHeight = parseInt(border.style.height);
 	var startY = e.pageY;
 
-	marker.ondragend = function(e){
+	marker.ondrag = function(e){
 
 		var newWidth = oldWidth - startX + e.pageX;
 		var newHeight = oldHeight - startY + e.pageY;
 
 		var diffInWidth = Math.abs(newWidth - oldWidth);
 		var diffInHeight = Math.abs(newHeight - oldHeight);
-		
-		if (diffInWidth > diffInHeight){
-			scaleByWidth();
-		} else{
-			scaleByHeight();
+		if(e.pageX != 0 && e.pageY != 0){
+
+			if (diffInWidth > diffInHeight){
+				scaleByWidth();
+			} else{
+				scaleByHeight();
+			};
+
 		};
 
 		function scaleByWidth(){
 			if (newWidth >= minsize){
 				border.style.width = newWidth + "px";
-			}else{ 
+			}else{
 				newWidth = minsize;
 				border.style.width = newWidth + "px";
 			};
@@ -49,10 +47,13 @@ marker.ondragstart = function(e){
 			mendMarker();
 
 		};
+
+
+
 		function scaleByHeight(){
 			if(newHeight >= minsize){
 				border.style.height = newHeight + "px";
-				console.log(border.style.height);
+
 			}else{
 				newHeight = minsize;
 				border.style.height = newHeight + "px";
@@ -135,5 +136,6 @@ function getCoords(elem) {
 function mendMarker(){
 	marker.style.left = border.style.width;
 	marker.style.top = border.style.height;
+	marker.style.zIndex = 1001;
 }
 
